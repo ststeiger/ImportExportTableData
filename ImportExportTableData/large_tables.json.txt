@@ -1,0 +1,7 @@
+[
+ {"TableSchema":"dbo","TableName":"T_File"}
+,{"TableSchema":"dbo","TableName":"T_AP_Dokumente"}
+,{"TableSchema":"dbo","TableName":"T_COR_Log"}
+,{"TableSchema":"dbo","TableName":"T_COR_Error"}
+,{"TableSchema":"dbo","TableName":"T_AP_Raum_History"}
+]

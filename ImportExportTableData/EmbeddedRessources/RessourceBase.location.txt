@@ -1,0 +1,4 @@
+This file is used in Code to get the base namespace of the EmbeddedRessources folder.
+Do NOT remove this file !
+If you do, SQL statements won't be found, and the program will be terminated
+by the thrown exception.
