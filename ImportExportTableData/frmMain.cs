@@ -88,8 +88,9 @@ namespace ImportExportTableData
 
         public DB.Abstraction.cDAL GetDAL()
         {
-            csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(DB.Abstraction.cDAL.DataBaseEngine_t.MS_SQL);
-            
+            // csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(DB.Abstraction.cDAL.DataBaseEngine_t.MS_SQL);
+            csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(DB.Abstraction.cDAL.DataBaseEngine_t.PostGreSQL);
+
 
             if (this.cbIntegratedSecurity.Checked)
             {
@@ -114,6 +115,11 @@ namespace ImportExportTableData
 
             csb.Server = this.txtServer.Text;
             csb.DataBase = this.txtCatalog.Text;
+
+
+            string cs = csb.ConnectionString;
+            System.Console.WriteLine(cs);
+
 
             return DB.Abstraction.cDAL.CreateInstance(csb);
         } // End Function GetDAL
@@ -345,14 +351,30 @@ namespace ImportExportTableData
         } // End Sub btnImport_Click
 
 
+        public static string GetPreciseFileName(string path, string fileName)
+        {
+            string[] filez = System.IO.Directory.GetFiles(path);
+
+            for(long i = 0; i< filez.LongLength; ++i)
+            {
+                if(string.Equals(filez[i], fileName, System.StringComparison.OrdinalIgnoreCase))
+                    return filez[i];
+            } // Next i 
+
+            return fileName;
+        }
+
+
         private void Import()
         {
             DAL = null;
             DAL = GetDAL();
 
             string strPath = this.txtLocation.Text;
-            string strSQL = DAL.GetEmbeddedSQLscript("foreign_key_dependencies.sql");
-            System.Data.DataTable dtTablesToImport = DAL.GetDataTable(strSQL);
+            // string strSQL = DAL.GetEmbeddedSQLscript("foreign_key_dependencies.sql");
+            // System.Data.DataTable dtTablesToImport = DAL.GetDataTable(strSQL);
+            System.Data.DataTable dtTablesToImport = DAL.GetForeignKeyDependencies();
+
 
             System.Collections.Generic.List<LargeTable> lsLargeFiles = this.GetLargeFiles();
 
@@ -374,6 +396,8 @@ namespace ImportExportTableData
                     // Import JSON Format 
                     {
                         strFileName = System.IO.Path.Combine(strPath, strTableName + ".json");
+                        strFileName = GetPreciseFileName(strPath, strFileName);
+
                         if (System.IO.File.Exists(strFileName))
                         {
                             DAL.InsertJSONFromFile(strTableSchema, strTableName, strFileName);
@@ -392,6 +416,8 @@ namespace ImportExportTableData
                     // Import XML Format 
                     {
                         strFileName = System.IO.Path.Combine(strPath, strTableName + ".xml");
+                        strFileName = GetPreciseFileName(strPath, strFileName);
+
                         if (System.IO.File.Exists(strFileName))
                         {
                             using (System.Data.DataTable dt = new System.Data.DataTable())
