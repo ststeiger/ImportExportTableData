@@ -58,13 +58,15 @@
             this.HelpDisplayDeleteScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpAboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbWithLobs = new System.Windows.Forms.CheckBox();
+            this.cbDbType = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplayData)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(12, 533);
+            this.btnExport.Location = new System.Drawing.Point(12, 574);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(75, 23);
             this.btnExport.TabIndex = 0;
@@ -74,7 +76,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(93, 533);
+            this.btnImport.Location = new System.Drawing.Point(93, 574);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(75, 23);
             this.btnImport.TabIndex = 1;
@@ -92,7 +94,7 @@
             // 
             // txtLocation
             // 
-            this.txtLocation.Location = new System.Drawing.Point(12, 503);
+            this.txtLocation.Location = new System.Drawing.Point(12, 544);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(639, 20);
             this.txtLocation.TabIndex = 3;
@@ -110,14 +112,14 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(423, 443);
+            this.txtUsername.Location = new System.Drawing.Point(423, 484);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(228, 20);
             this.txtUsername.TabIndex = 5;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(423, 469);
+            this.txtPassword.Location = new System.Drawing.Point(423, 510);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(228, 20);
             this.txtPassword.TabIndex = 6;
@@ -125,7 +127,7 @@
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(362, 446);
+            this.lblUserName.Location = new System.Drawing.Point(362, 487);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(55, 13);
             this.lblUserName.TabIndex = 7;
@@ -134,7 +136,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(364, 473);
+            this.lblPassword.Location = new System.Drawing.Point(364, 514);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(53, 13);
             this.lblPassword.TabIndex = 8;
@@ -142,14 +144,14 @@
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(93, 443);
+            this.txtServer.Location = new System.Drawing.Point(93, 484);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(220, 20);
             this.txtServer.TabIndex = 9;
             // 
             // txtCatalog
             // 
-            this.txtCatalog.Location = new System.Drawing.Point(93, 469);
+            this.txtCatalog.Location = new System.Drawing.Point(93, 510);
             this.txtCatalog.Name = "txtCatalog";
             this.txtCatalog.Size = new System.Drawing.Size(220, 20);
             this.txtCatalog.TabIndex = 10;
@@ -157,7 +159,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 446);
+            this.label1.Location = new System.Drawing.Point(12, 487);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 11;
@@ -166,7 +168,7 @@
             // lblInitialCatalog
             // 
             this.lblInitialCatalog.AutoSize = true;
-            this.lblInitialCatalog.Location = new System.Drawing.Point(14, 473);
+            this.lblInitialCatalog.Location = new System.Drawing.Point(14, 514);
             this.lblInitialCatalog.Name = "lblInitialCatalog";
             this.lblInitialCatalog.Size = new System.Drawing.Size(73, 13);
             this.lblInitialCatalog.TabIndex = 12;
@@ -197,7 +199,7 @@
             // 
             // btnEncrypt
             // 
-            this.btnEncrypt.Location = new System.Drawing.Point(576, 533);
+            this.btnEncrypt.Location = new System.Drawing.Point(576, 574);
             this.btnEncrypt.Name = "btnEncrypt";
             this.btnEncrypt.Size = new System.Drawing.Size(75, 23);
             this.btnEncrypt.TabIndex = 17;
@@ -256,7 +258,7 @@
             // 
             // btnDeleteScript
             // 
-            this.btnDeleteScript.Location = new System.Drawing.Point(457, 533);
+            this.btnDeleteScript.Location = new System.Drawing.Point(457, 574);
             this.btnDeleteScript.Name = "btnDeleteScript";
             this.btnDeleteScript.Size = new System.Drawing.Size(113, 23);
             this.btnDeleteScript.TabIndex = 23;
@@ -265,7 +267,7 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 563);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 624);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(725, 22);
             this.statusStrip1.TabIndex = 24;
@@ -331,11 +333,30 @@
             this.cbWithLobs.Text = "with LOBs";
             this.cbWithLobs.UseVisualStyleBackColor = true;
             // 
+            // cbDbType
+            // 
+            this.cbDbType.FormattingEnabled = true;
+            this.cbDbType.Location = new System.Drawing.Point(93, 455);
+            this.cbDbType.Name = "cbDbType";
+            this.cbDbType.Size = new System.Drawing.Size(220, 21);
+            this.cbDbType.TabIndex = 27;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 458);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "DB Type";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 585);
+            this.ClientSize = new System.Drawing.Size(725, 646);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbDbType);
             this.Controls.Add(this.cbWithLobs);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -406,6 +427,8 @@
         private System.Windows.Forms.ToolStripMenuItem HelpAboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem HelpDisplayDeleteScriptToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbWithLobs;
+        private System.Windows.Forms.ComboBox cbDbType;
+        private System.Windows.Forms.Label label3;
     }
 }
 

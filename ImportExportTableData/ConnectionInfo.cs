@@ -14,6 +14,13 @@ namespace ImportExportTableData
         public string Remark;
         public bool Default;
 
+        public DB.Abstraction.cDAL.DataBaseEngine_t DataBaseEngine;
+
+        public ConnectionInfo()
+        {
+            this.DataBaseEngine = DB.Abstraction.cDAL.DataBaseEngine_t.MS_SQL;
+        }
+
 
         public override string ToString()
         {

@@ -14,6 +14,24 @@ namespace ImportExportTableData
         }
 
 
+        public static string GetPreciseFileName(string path, string tableName, string extension)
+        {
+            string fileName = System.IO.Path.Combine(path, tableName + extension);
+
+            string[] filez = System.IO.Directory.GetFiles(path);
+
+            // Linux is case-sensitive, PostgreSQL tablenames are in lowercase, but MS-SQL tablenames are camel-case 
+            // filename is camel case when originating from Windows
+            for (long i = 0; i < filez.LongLength; ++i)
+            {
+                if (string.Equals(filez[i], fileName, System.StringComparison.OrdinalIgnoreCase))
+                    return filez[i];
+            } // Next i 
+
+            return fileName;
+        } // End Function GetPreciseFileName 
+
+
         public System.Collections.Generic.List<LargeTable> GetLargeFiles()
         {
             System.Collections.Generic.List<LargeTable> ls = new System.Collections.Generic.List<LargeTable>();

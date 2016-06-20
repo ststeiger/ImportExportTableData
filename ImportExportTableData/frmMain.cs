@@ -18,7 +18,26 @@ namespace ImportExportTableData
 
         public virtual System.Collections.Generic.List<ConnectionInfo> GetMachineConnectionInfoList()
         {
-            return null;
+            System.Collections.Generic.List<ConnectionInfo> ls = new System.Collections.Generic.List<ConnectionInfo>();
+            ls = null; // Edd it in Confidential/frmMainConfidential.cs instead 
+
+            if(ls != null)
+                ls.Sort(delegate(ConnectionInfo a, ConnectionInfo b)
+                    {
+                        // const int ASC = 1;
+                        // const int DESC = -1;
+
+                        int ret = string.Compare(a.MachineName, b.MachineName);
+                        if (ret != 0) return ret;
+
+                        ret = string.Compare(a.ServerInstance, b.ServerInstance);
+                        if (ret != 0) return ret;
+
+                        return string.Compare(a.InitialCatalog, b.InitialCatalog);
+                    }
+                ); // End ls.Sort 
+
+            return ls;
         }
 
 
@@ -40,6 +59,13 @@ namespace ImportExportTableData
             lsImportMachines.Add("COR-W81-107");
             lsImportMachines.Add("COR-W81-108");
             lsImportMachines.Add("COR-W81-109");
+
+
+            foreach (DB.Abstraction.cDAL.DataBaseEngine_t val in System.Enum.GetValues(typeof(DB.Abstraction.cDAL.DataBaseEngine_t)))
+            {
+                this.cbDbType.Items.Add(val.ToString());
+            }
+            this.cbDbType.SelectedIndex = 0;
 
 
             if (ListContains(lsImportMachines, System.Environment.MachineName))
@@ -71,6 +97,8 @@ namespace ImportExportTableData
                         if (this.cbSelectDb.Items.Count > 0)
                         {
                             this.cbSelectDb.SelectedIndex = itemCount;
+                            this.cbDbType.SelectedIndex = this.cbDbType.FindString(ci.DataBaseEngine.ToString());
+                            
                             bDefaultNotSet = false;
                         }
                             
@@ -88,9 +116,8 @@ namespace ImportExportTableData
 
         public DB.Abstraction.cDAL GetDAL()
         {
-            // csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(DB.Abstraction.cDAL.DataBaseEngine_t.MS_SQL);
-            csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(DB.Abstraction.cDAL.DataBaseEngine_t.PostGreSQL);
-
+            DB.Abstraction.cDAL.DataBaseEngine_t selectedEngine = (DB.Abstraction.cDAL.DataBaseEngine_t)this.cbDbType.SelectedItem;
+            csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(selectedEngine);
 
             if (this.cbIntegratedSecurity.Checked)
             {
@@ -351,20 +378,6 @@ namespace ImportExportTableData
         } // End Sub btnImport_Click
 
 
-        public static string GetPreciseFileName(string path, string fileName)
-        {
-            string[] filez = System.IO.Directory.GetFiles(path);
-
-            for(long i = 0; i< filez.LongLength; ++i)
-            {
-                if(string.Equals(filez[i], fileName, System.StringComparison.OrdinalIgnoreCase))
-                    return filez[i];
-            } // Next i 
-
-            return fileName;
-        }
-
-
         private void Import()
         {
             DAL = null;
@@ -395,8 +408,7 @@ namespace ImportExportTableData
 
                     // Import JSON Format 
                     {
-                        strFileName = System.IO.Path.Combine(strPath, strTableName + ".json");
-                        strFileName = GetPreciseFileName(strPath, strFileName);
+                        strFileName = GetPreciseFileName(strPath, strTableName, ".json");
 
                         if (System.IO.File.Exists(strFileName))
                         {
@@ -415,8 +427,7 @@ namespace ImportExportTableData
 
                     // Import XML Format 
                     {
-                        strFileName = System.IO.Path.Combine(strPath, strTableName + ".xml");
-                        strFileName = GetPreciseFileName(strPath, strFileName);
+                        strFileName = GetPreciseFileName(strPath, strTableName, ".xml");
 
                         if (System.IO.File.Exists(strFileName))
                         {
