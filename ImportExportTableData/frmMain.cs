@@ -59,6 +59,7 @@ namespace ImportExportTableData
             lsImportMachines.Add("COR-W81-107");
             lsImportMachines.Add("COR-W81-108");
             lsImportMachines.Add("COR-W81-109");
+            lsImportMachines.Add("localhost");
 
 
             foreach (DB.Abstraction.cDAL.DataBaseEngine_t val in System.Enum.GetValues(typeof(DB.Abstraction.cDAL.DataBaseEngine_t)))
