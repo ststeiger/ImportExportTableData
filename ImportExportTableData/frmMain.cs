@@ -116,7 +116,12 @@ namespace ImportExportTableData
 
         public DB.Abstraction.cDAL GetDAL()
         {
-            DB.Abstraction.cDAL.DataBaseEngine_t selectedEngine = (DB.Abstraction.cDAL.DataBaseEngine_t)this.cbDbType.SelectedItem;
+            string foo = this.cbDbType.SelectedItem.ToString();
+            DB.Abstraction.cDAL.DataBaseEngine_t selectedEngine = (DB.Abstraction.cDAL.DataBaseEngine_t)
+                System.Enum.Parse(typeof(DB.Abstraction.cDAL.DataBaseEngine_t), foo);
+
+
+            // DB.Abstraction.cDAL.DataBaseEngine_t selectedEngine = (DB.Abstraction.cDAL.DataBaseEngine_t)this.cbDbType.SelectedItem;
             csb = DB.Abstraction.UniversalConnectionStringBuilder.CreateInstance(selectedEngine);
 
             if (this.cbIntegratedSecurity.Checked)
